@@ -1,6 +1,5 @@
 package com.csmithswim;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,5 +35,9 @@ public class Cup {
         for (var die : dice) {
             die.roll(rand);
         }
+    }
+
+    public int size() {
+        return dice.size();
     }
 }
