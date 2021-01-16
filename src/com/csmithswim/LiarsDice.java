@@ -3,17 +3,17 @@ package com.csmithswim;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class LiarsDice {
     private List<Player> players;
     private Console console = new Console();
     final int CLAIM_VALUE = 0, CLAIM_COUNT = 1;
     private int[] claim;
+    private int round = 1;
 
     public LiarsDice(int numPlayers) {
         players = new ArrayList<>();
         for (int count = 0; count < numPlayers; count++) {
-            players.add(new Player(console.getString("Player " + (count + 1) + "'s Name")));
+            players.add(new Player(console.getString("Enter Player " + (count + 1) + "'s Name")));
         }
         while (true) {
             boolean continueGame = runRound();
@@ -22,8 +22,9 @@ public class LiarsDice {
     }
 
     public boolean runRound() {
+        System.out.println("Start of round "+round+"\n\n");
         shakeAllCups();
-        System.out.println(players.get(0).getName() + "'s turn");
+        System.out.println(players.get(0).getName() + "'s turn:");
         players.get(0).peek();
         claim = players.get(0).getClaim();
         int activePlayer = 1;
@@ -34,10 +35,13 @@ public class LiarsDice {
         }
         if (isLie()) {
             activePlayer -= 1;
+            System.out.println(players.get(activePlayer% players.size()).getName() + " is a big fat LIAR!");
+            System.out.println(players.get(activePlayer% players.size()).getName() + " has lost one die.");
         }
         int affectedPlayer = activePlayer % players.size();
         players.get(affectedPlayer).removeDie();
         if (players.get(affectedPlayer).isOut()) {
+            System.out.println(players.get(affectedPlayer).getName()+"Has lost all their dice and is out of the game.");
             players.remove(affectedPlayer);
         }
         // determine if there are enough players to continue.
@@ -45,16 +49,20 @@ public class LiarsDice {
             System.out.println("Game over " + players.get(0).getName() + " Wins!");
             return false;
         }
+        System.out.println("End of round " + round + ".");
+        round++;
         return true;
     }
 
     public boolean runTurn(Player player) {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n");
         console.getString(player.getName() + "'s turn press enter to continue");
+//        System.out.println(player.getName() + "'s cup: "+player.peek(););
         player.peek();
         System.out.println("The current claim is: " + claim[CLAIM_COUNT] + " " + claim[CLAIM_VALUE] + "s" );
         boolean decision = player.getDecision();
+        //If lie?
         if (decision) {
-            // called lie end turns.
             return false;
         }
         int [] newClaim;
@@ -71,9 +79,6 @@ public class LiarsDice {
     };
 
     private boolean isValidClaim(int[] newClaim) {
-
-        //claim: value 3, count 3
-        //newClaim: value 4, count 1
         if (newClaim[CLAIM_COUNT] == claim[CLAIM_COUNT] && newClaim[CLAIM_VALUE] == claim[CLAIM_VALUE]) {
             System.out.println("Error: must be a new claim");
             return false;
@@ -86,7 +91,6 @@ public class LiarsDice {
             System.out.println("Error: Must increment at least one item");
             return false;
         }
-
         return true;
     }
 
