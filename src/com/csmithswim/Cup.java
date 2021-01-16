@@ -27,7 +27,7 @@ public class Cup {
         for (var die : dice) {
             output += die.getValue() + " ";
         }
-        System.out.println(output.trim());
+        System.out.println(output.trim()+"\n");
     }
 
     public void roll() {
