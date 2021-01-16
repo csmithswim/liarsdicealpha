@@ -9,6 +9,7 @@ public class LiarsDice {
     final int CLAIM_VALUE = 0, CLAIM_COUNT = 1;
     private int[] claim;
     private int round = 1;
+    private int activePlayer = 0;
 
     public LiarsDice(int numPlayers) {
         players = new ArrayList<>();
@@ -22,12 +23,13 @@ public class LiarsDice {
     }
 
     public boolean runRound() {
-        System.out.println("Start of round "+round+"\n\n");
+        System.out.println("Start of round "+round);
         shakeAllCups();
-        System.out.println(players.get(0).getName() + "'s turn:");
-        players.get(0).peek();
-        claim = players.get(0).getClaim();
-        int activePlayer = 1;
+        //Where the program determines who goes first
+        System.out.println(players.get(activePlayer).getName() + "'s turn:");
+        players.get(activePlayer).peek();
+        claim = players.get(activePlayer).getClaim();
+        activePlayer++;
         while (true) {
             boolean continueRound = runTurn(players.get(activePlayer % players.size()));
             if (!continueRound) break;
@@ -49,13 +51,12 @@ public class LiarsDice {
             System.out.println("Game over " + players.get(0).getName() + " Wins!");
             return false;
         }
-        System.out.println("End of round " + round + ".");
         round++;
         return true;
     }
 
     public boolean runTurn(Player player) {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n");
+//        System.out.print("\n\n\n\n\n\n\n\n\n\n\n");
         console.getString(player.getName() + "'s turn press enter to continue");
 //        System.out.println(player.getName() + "'s cup: "+player.peek(););
         player.peek();
@@ -70,14 +71,9 @@ public class LiarsDice {
             newClaim = player.getClaim();
             if (isValidClaim(newClaim)) break;
         }
-//        do {
-//            newClaim = player.getClaim();
-//        } while (!isValidClaim(newClaim));
-
         claim = newClaim;
         return true;
     };
-
     private boolean isValidClaim(int[] newClaim) {
         if (newClaim[CLAIM_COUNT] == claim[CLAIM_COUNT] && newClaim[CLAIM_VALUE] == claim[CLAIM_VALUE]) {
             System.out.println("Error: must be a new claim");
@@ -93,13 +89,11 @@ public class LiarsDice {
         }
         return true;
     }
-
     private void shakeAllCups() {
         for (var player : players) {
             player.roll();
         }
     }
-
     private boolean isLie() {
         int count = 0;
         for (var player : players) {

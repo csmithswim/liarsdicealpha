@@ -1,18 +1,19 @@
 package com.csmithswim;
+// improvements:
+// [x]Print out end of round info. Call out liar and declare who lost a die.
+// [x]declare when a player is removed from game.
+// improve overall print outs.
+//[x] clear console at start of next player turn.
+//[x]allow user to enter how many players.
+
+// Major improvement:
+// each round should start with a new player.
+// clean code.
+
 
 public class Main {
     public static void main(String[] args) {
-        LiarsDice game = new LiarsDice(3);
-
-        // improvements:
-        // Print out end of round info. Call out liar and declare who lost a die.
-        // declare when a player is removed from game.
-        // improve overall print outs.
-        // clear console at start of next player turn.
-        // allow user to enter how many players.
-
-        // Major improvement:
-        // each round should start with a new player.
-        // clean code.
+        Console console = new Console();
+        LiarsDice game = new LiarsDice(console.getInt(2,100,"Enter How many players are playing:"));
     }
 }
