@@ -9,7 +9,7 @@ public class LiarsDice {
     final int CLAIM_VALUE = 0, CLAIM_COUNT = 1;
     private int[] claim;
     private int round = 1;
-    private int activePlayer = 0;
+    private int playerNumber = 0;
 
     public LiarsDice(int numPlayers) {
         players = new ArrayList<>();
@@ -26,10 +26,11 @@ public class LiarsDice {
         System.out.println("Start of round "+round);
         shakeAllCups();
         //Where the program determines who goes first
-        System.out.println(players.get(activePlayer).getName() + "'s turn:");
-        players.get(activePlayer).peek();
-        claim = players.get(activePlayer).getClaim();
-        activePlayer++;
+        System.out.println(players.get(playerNumber % players.size()).getName() + "'s turn:");
+        players.get(playerNumber).peek();
+        claim = players.get(playerNumber).getClaim();
+        playerNumber++;
+        int activePlayer = playerNumber;
         while (true) {
             boolean continueRound = runTurn(players.get(activePlayer % players.size()));
             if (!continueRound) break;
@@ -50,6 +51,10 @@ public class LiarsDice {
         if (players.size() == 1) {
             System.out.println("Game over " + players.get(0).getName() + " Wins!");
             return false;
+        }
+        playerNumber=activePlayer+1;
+        if(playerNumber>=players.size()){
+            playerNumber=0;
         }
         round++;
         return true;
