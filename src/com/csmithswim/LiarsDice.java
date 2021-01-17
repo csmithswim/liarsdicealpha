@@ -25,7 +25,6 @@ public class LiarsDice {
     public boolean runRound() {
         System.out.println("Start of round "+round);
         shakeAllCups();
-        //Where the program determines who goes first
         System.out.println(players.get(playerNumber % players.size()).getName() + "'s turn:");
         players.get(playerNumber).peek();
         claim = players.get(playerNumber).getClaim();
@@ -38,8 +37,7 @@ public class LiarsDice {
         }
         if (isLie()) {
             activePlayer -= 1;
-            System.out.println(players.get(activePlayer% players.size()).getName() + " is a big fat LIAR!");
-            System.out.println(players.get(activePlayer% players.size()).getName() + " has lost one die.");
+            System.out.println(players.get(activePlayer% players.size()).getName() + " is a big fat LIAR! and has lost one die");
         }
         int affectedPlayer = activePlayer % players.size();
         players.get(affectedPlayer).removeDie();
@@ -47,7 +45,6 @@ public class LiarsDice {
             System.out.println(players.get(affectedPlayer).getName()+"Has lost all their dice and is out of the game.");
             players.remove(affectedPlayer);
         }
-        // determine if there are enough players to continue.
         if (players.size() == 1) {
             System.out.println("Game over " + players.get(0).getName() + " Wins!");
             return false;
@@ -61,13 +58,11 @@ public class LiarsDice {
     }
 
     public boolean runTurn(Player player) {
-//        System.out.print("\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n");
         console.getString(player.getName() + "'s turn press enter to continue");
-//        System.out.println(player.getName() + "'s cup: "+player.peek(););
         player.peek();
         System.out.println("The current claim is: " + claim[CLAIM_COUNT] + " " + claim[CLAIM_VALUE] + "s" );
         boolean decision = player.getDecision();
-        //If lie?
         if (decision) {
             return false;
         }
