@@ -1,14 +1,14 @@
 package com.csmithswim;
-// improvements:
+// Assignments:
 // [x]Print out end of round info. Call out liar and declare who lost a die.
 // [x]declare when a player is removed from game.
-// improve overall print outs.
 //[x] clear console at start of next player turn.
 //[x]allow user to enter how many players.
+// [x]each round should start with a new player.
 
-// Major improvement:
-// each round should start with a new player.
+// TODO:
 // clean code.
+// improve overall print outs.
 
 
 public class Main {
