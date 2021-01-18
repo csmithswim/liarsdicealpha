@@ -16,7 +16,7 @@ public class Console {
         String input = "";
         do {
             System.out.println(query);
-            input = scanner.nextLine();
+            input = scanner.next();
         } while (!input.equals(yes) && !input.equals(no));
         return input.equals(yes);
     }

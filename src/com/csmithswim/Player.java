@@ -30,7 +30,7 @@ public class Player {
     public int[] getClaim() {
         int dieValue, dieCount;
         dieValue = console.getInt(1, 6, "What die values are you claiming? Input 1-6");
-        dieCount = console.getInt(1, (2*player.size()), "How many " + dieValue + "'s are you claiming? Dice: (1 - 14)");
+        dieCount = console.getInt(1, 14, "How many " + dieValue + "'s are you claiming? Dice: (1 - 14)");
         return new int[] {dieValue, dieCount};
     }
 

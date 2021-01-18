@@ -25,7 +25,7 @@ public class LiarsDice {
     public boolean runRound() {
         System.out.println("Start of round "+round);
         shakeAllCups();
-        System.out.println(players.get(playerNumber % players.size()).getName() + "'s turn:");
+        System.out.println(players.get(playerNumber % players.size()).getName() + "'s dice:");
         players.get(playerNumber).peek();
         claim = players.get(playerNumber).getClaim();
         playerNumber++;
@@ -35,6 +35,8 @@ public class LiarsDice {
             if (!continueRound) break;
             activePlayer++;
         }
+        playerNumber=activePlayer+1;
+
         if (isLie()) {
             activePlayer -= 1;
             System.out.println(players.get(activePlayer% players.size()).getName() + " is a big fat LIAR! and has lost one die");
@@ -49,7 +51,6 @@ public class LiarsDice {
             System.out.println("Game over " + players.get(0).getName() + " Wins!");
             return false;
         }
-        playerNumber=activePlayer+1;
         if(playerNumber>=players.size()){
             playerNumber=0;
         }
